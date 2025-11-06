@@ -1,0 +1,40 @@
+.swiper {
+  width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px; 
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: auto; 
+  object-fit: cover;
+  border-radius: 12px;
+}
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: -2px !important;
+}
+.swiper-pagination-bullet {
+  background-color: #868585 !important;
+}
+/* للجوال */
+@media (max-width: 768px) {
+  .swiper-slide {
+    flex-direction: column-reverse;
+    min-height: 400px; /* 👈 ارتفاع أصغر للجوال */
+    margin-right: 0;
+    padding: 0;
+  }
+}
