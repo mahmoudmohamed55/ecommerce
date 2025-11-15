@@ -134,7 +134,9 @@ export default function Orders() {
                   bgcolor:
                     order.status === "pending"
                       ? "secondary.main"
-                      : "success.main",
+                      : order.status === "paid"
+                      ? "success.main"
+                      : "error.main",
                   color: "white",
                 }}
               >

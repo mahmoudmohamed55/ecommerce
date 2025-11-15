@@ -23,6 +23,7 @@ import {
   TableRow,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import { useEffect, useState } from "react";
@@ -61,6 +62,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function AdminDashboard() {
   const { t } = useTranslation();
+  let theme = useTheme();
   const [tab, setTab] = useState("products");
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
@@ -113,17 +115,14 @@ export default function AdminDashboard() {
     if (tab === "products") {
       const { data, error } = await supabase.from("products").select("*");
       if (!error) setProducts(data);
-      console.log(data);
     } else if (tab === "users") {
       const { data, error } = await adminClient
         .from("profiles")
         .select("id,email,role");
       if (!error) setUsers(data);
-      console.log(data);
     } else if (tab === "orders") {
       const { data, error } = await adminClient.from("orders").select("*");
       if (!error) setOrders(data);
-      console.log(data);
     }
     setLoading(false);
   };
@@ -153,7 +152,7 @@ export default function AdminDashboard() {
   };
 
   const HandleProductActions = async () => {
-    setAccept(true);
+    // setAccept(true);
     if (!form.name || !form.price || !form.description || !form.image_url) {
       return Swal.fire(t("alert.error"), t("alert.fill_all_fields"), "error");
     }
@@ -253,7 +252,12 @@ export default function AdminDashboard() {
             variant="contained"
             sx={{
               bgcolor: item.key === tab ? "primary.main" : "grey.300",
-              color: item.key === tab ? "white" : "grey.800",
+              color:
+                theme.palette.mode === "dark"
+                  ? "black"
+                  : item.key === tab
+                  ? "white"
+                  : "black",
               fontWeight: item.key === tab ? "bold" : "medium",
               px: 3,
               py: 1,
@@ -296,7 +300,7 @@ export default function AdminDashboard() {
             startIcon={<Add />}
             sx={{
               bgcolor: "primary.main",
-              color: "white",
+              color: theme.palette.mode === "dark" ? "black" : "white",
               fontWeight: "bold",
               px: { xs: 1, sm: 3 },
               py: 1,
